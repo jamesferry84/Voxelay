@@ -6,21 +6,38 @@ using UnityEngine.UIElements;
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float xMove = .1f;
-    [SerializeField] private float yMove = .1f;
-    [SerializeField] private float zMove = .1f;
+    [SerializeField] private float firingDelay = .5f;
+
+    [SerializeField] private Projectile projectile;
+
+    // private float zValue = 0f;
+    private float yValue = 0f;
+    private float elapsed = 0f;
+    
+
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        elapsed += Time.time;
+        if (elapsed >= firingDelay)
         {
-            transform.Translate(xMove,yMove,zMove);
+            if (Input.GetButton("Fire1"))
+            {
+                Instantiate(projectile, transform.position, Quaternion.Euler(90,0,0));
+            }
+
+            elapsed = 0f;
         }
+        
+
+        float xValue = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
+        float zValue = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
+
+        transform.Translate(xValue, yValue, zValue);
     }
 }
