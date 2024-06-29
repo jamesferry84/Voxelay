@@ -1116,6 +1116,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 52
   m_CollisionDetection: 0
+--- !u!114 &1526393319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 983006361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06341976dbb6459fa988dcc1ea960a4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firingDelay: 0.5
+  singleStraightProjectile: {fileID: 8086807155208254024, guid: 31b6e6386b325ba41855155bb47985d4, type: 3}
+  singleMissileProjectile: {fileID: 8086807155208254024, guid: 31b6e6386b325ba41855155bb47985d4, type: 3}
+  orbitalShooterProjectile: {fileID: 8086807155208254024, guid: 31b6e6386b325ba41855155bb47985d4, type: 3}
 --- !u!1 &1620277862
 GameObject:
   m_ObjectHideFlags: 0
@@ -1677,9 +1693,37 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4268445605595320619, guid: 9318b59466b5fe54ab644f03aea112fa, type: 3}
+      propertyPath: gun_1
+      value: 
+      objectReference: {fileID: 1463827445}
+    - target: {fileID: 4268445605595320619, guid: 9318b59466b5fe54ab644f03aea112fa, type: 3}
+      propertyPath: gun_2
+      value: 
+      objectReference: {fileID: 1850016131}
+    - target: {fileID: 4268445605595320619, guid: 9318b59466b5fe54ab644f03aea112fa, type: 3}
+      propertyPath: gun_3
+      value: 
+      objectReference: {fileID: 1240505312}
+    - target: {fileID: 4268445605595320619, guid: 9318b59466b5fe54ab644f03aea112fa, type: 3}
       propertyPath: projectile
       value: 
       objectReference: {fileID: 1874999573728274854, guid: 31b6e6386b325ba41855155bb47985d4, type: 3}
+    - target: {fileID: 4268445605595320619, guid: 9318b59466b5fe54ab644f03aea112fa, type: 3}
+      propertyPath: guns.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4268445605595320619, guid: 9318b59466b5fe54ab644f03aea112fa, type: 3}
+      propertyPath: guns.Array.data[0]
+      value: 
+      objectReference: {fileID: 1463827445}
+    - target: {fileID: 4268445605595320619, guid: 9318b59466b5fe54ab644f03aea112fa, type: 3}
+      propertyPath: guns.Array.data[1]
+      value: 
+      objectReference: {fileID: 1850016131}
+    - target: {fileID: 4268445605595320619, guid: 9318b59466b5fe54ab644f03aea112fa, type: 3}
+      propertyPath: guns.Array.data[2]
+      value: 
+      objectReference: {fileID: 1240505312}
     - target: {fileID: 8751214518217085829, guid: 9318b59466b5fe54ab644f03aea112fa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1731,6 +1775,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9223335136013579211, guid: 9318b59466b5fe54ab644f03aea112fa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1526393318}
+    - targetCorrespondingSourceObject: {fileID: 9223335136013579211, guid: 9318b59466b5fe54ab644f03aea112fa, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1526393319}
   m_SourcePrefab: {fileID: 100100000, guid: 9318b59466b5fe54ab644f03aea112fa, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
