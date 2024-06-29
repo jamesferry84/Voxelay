@@ -110,9 +110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e03c994cb287f7a43bd401ee086b4bbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 25
-  firingDelay: 50
-  projectile: {fileID: 7890100533595461579, guid: 613fe02c89c64fc46b1eb45ada7bd351, type: 3}
+  moveSpeed: 15
+  firingDelay: 400
+  projectile: {fileID: 0}
 --- !u!1001 &430252628444568304
 PrefabInstance:
   m_ObjectHideFlags: 0
