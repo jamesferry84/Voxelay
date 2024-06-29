@@ -1,14 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
+using TextMeshProUGUI = TMPro.TextMeshProUGUI;
 
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float firingDelay = .5f;
 
-    [SerializeField] private Projectile projectile;
+    [SerializeField] private Projectile projectile; 
+    private int currentGun;
+
+    [SerializeField] private TextMeshProUGUI[] guns;
 
     private Projectile currentProjectile;
     private Projectile currentProjectileTwo;
@@ -29,15 +35,35 @@ public class PlayerManager : MonoBehaviour
 
     private float currentAngle = 0f;
     public float rollFactor = -40f;
+    
 
     void Start()
     {
+        if (guns == null)
+        {
+            guns = new TextMeshProUGUI[] {};
+        }
+
+        currentGun = 0;
+        guns[currentGun].color = Color.red;
     }
 
     // Update is called once per frame
     void Update()
     {
         elapsed += Time.time;
+
+        if (Input.GetButtonDown("Fire3"))
+        {
+            guns[currentGun].color = Color.white;
+
+            currentGun++;
+            if (currentGun >= guns.Length)
+            {
+                currentGun = 0;
+            }
+            guns[currentGun].color = Color.red;
+        }
 
         if (Input.GetButtonDown("Fire1"))
         {
