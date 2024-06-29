@@ -22,6 +22,12 @@ public class PlayerManager : MonoBehaviour
     // private float angle;
 
     // Start is called before the first frame update
+
+    private bool isHolding = false;
+    private float xValue;
+    private float zValue;
+
+    private float currentAngle = 0f;
     void Start()
     {
     }
@@ -30,6 +36,12 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         elapsed += Time.time;
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            holdTime = 0f;
+            isHolding = true;
+        }
        
 
         if (Input.GetButton("Fire1"))
@@ -47,6 +59,8 @@ public class PlayerManager : MonoBehaviour
         }
         if (Input.GetButtonUp("Fire1") )
         {
+            isHolding = false;
+            holdTime = 0f;
             holdTime -= Time.deltaTime;
             holdTime = Mathf.Clamp(holdTime, 0, maxHoldTime);
             float angle = Mathf.Lerp(5, 180, holdTime / maxHoldTime);
@@ -63,33 +77,46 @@ public class PlayerManager : MonoBehaviour
         }
 
 
-        float xValue = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
-        float zValue = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
+         xValue = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
+         zValue = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
 
         transform.Translate(xValue, yValue, zValue);
     }
 
     void FireProjectileOne()
     {
-        float angle = Mathf.Lerp(180, 15, holdTime / maxHoldTime);
+        float angle;
+
+        angle = Mathf.Lerp(180, 15, holdTime / maxHoldTime);
+        
+        if (!isHolding)
+        {
+            angle *= -1;
+        }
         if (elapsed >= firingDelay)
         {
             //elapsed = 0f;
             Quaternion rotation = Quaternion.Euler(0,angle,0);
             currentProjectile = Instantiate(projectile, transform.position, rotation);
+            Vector3 direction = rotation * Vector3.forward;
+            Vector3 playerVelocity = new Vector3(xValue, 0f, zValue) * Time.deltaTime;
+            currentProjectile.Initialize(direction, playerVelocity);
         }
     }
     
     void FireProjectileTwo()
-    { 
-        Debug.Log("Projectile Two");
-        float angle = Mathf.Lerp(180, 355, holdTime / maxHoldTime);
+    {
+        float angle;
+        angle = Mathf.Lerp(180, 355, holdTime / maxHoldTime);
         Debug.Log(angle);
         if (elapsed >= firingDelay)
         {
             //elapsed = 0f;
             Quaternion rotation = Quaternion.Euler(0,angle,0);
             currentProjectileTwo = Instantiate(projectile, transform.position, rotation);
+            Vector3 direction = rotation * Vector3.forward;
+            Vector3 playerVelocity = new Vector3(xValue, 0f, zValue) * Time.deltaTime;
+            currentProjectileTwo.Initialize(direction, playerVelocity);
         }
     }
 }
