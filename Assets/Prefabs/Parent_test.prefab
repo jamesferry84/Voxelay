@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce87538c7ed78e840ab9ef6d2e8ec55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
+  speed: 70
   rotateShoot: 1
   player: {fileID: 0}
 --- !u!54 &5148387546554480626
