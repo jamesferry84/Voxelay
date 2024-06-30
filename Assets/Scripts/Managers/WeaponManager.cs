@@ -146,12 +146,6 @@ namespace Managers
                         FireProjectileTwo(orbitalShooterProjectile);
                         elapsed = 0f;
                     }
-                    // if (elapsed >= firingDelay)
-                    // {
-                    //     elapsed = 0f;
-                    //     Quaternion rotation = Quaternion.Euler(0, angle, 0);
-                    //     currentProjectile = Instantiate(orbitalShooterProjectile, transform.position, rotation);
-                    // }
                 }
             }
             
