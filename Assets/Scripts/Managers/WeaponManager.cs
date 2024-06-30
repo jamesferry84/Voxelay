@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -55,7 +56,7 @@ namespace Managers
             }
         }
 
-        private void FireProjectile(Projectile projectile)
+        private IEnumerator FireProjectile(Projectile projectile)
         {
             if (Input.GetButton("Fire1") && elapsed >= firingDelay)
             {
@@ -67,14 +68,15 @@ namespace Managers
                 // projectileRenderer.sharedMaterial.color = new Color(randomRed,randomGreen,randomBlue,alpha);
                 currentProjectile = Instantiate(projectile, transform.position, Quaternion.identity);
                 currentProjectile.Initialize(Vector3.forward, new Vector3(0f, 0f, 5f));
+                elapsed = 0f;
             }
 
-            elapsed = 0f;
-
+            yield return new WaitForSeconds(firingDelay);
         }
 
         private void Update()
         {
+            Debug.Log("isHolding: " + isHolding);
             elapsed += Time.time;
 
 
@@ -82,7 +84,8 @@ namespace Managers
             {
                 case WeaponTypes.SingleStraight:
                 {
-                    FireProjectile(singleStraightProjectile);
+                    firingDelay = 600f;
+                    StartCoroutine(FireProjectile(singleStraightProjectile));
                     break;
                 }
                 case WeaponTypes.SingleMissile:
@@ -91,6 +94,7 @@ namespace Managers
                 }
                 case WeaponTypes.OrbitalShooter:
                 {
+                    firingDelay = 300f;
                     OrbitalProjectileFire();
                     break;
                 }
@@ -109,8 +113,8 @@ namespace Managers
                 holdTime = 0f;
                 isHolding = true;
             }
-            
-            
+
+
             if (Input.GetButton("Fire1"))
             {
                 holdTime += Time.deltaTime;
@@ -122,58 +126,63 @@ namespace Managers
                     elapsed = 0f;
                 }
             }
-            
+
             if (Input.GetButtonUp("Fire1"))
             {
                 isHolding = false;
-                holdTime = 0f;
+            }
+
+            if (isHolding == false)
+            {
                 holdTime -= Time.deltaTime;
                 holdTime = Mathf.Clamp(holdTime, 0, maxHoldTime);
                 float angle = Mathf.Lerp(5, 180, holdTime / maxHoldTime);
+                // Debug.Log("isHolding == false and angle = " + angle);
                 if (angle <= 180f)
                 {
                     if (elapsed >= firingDelay)
                     {
+                        FireProjectileOne(orbitalShooterProjectile);
+                        FireProjectileTwo(orbitalShooterProjectile);
                         elapsed = 0f;
-                        Quaternion rotation = Quaternion.Euler(0, angle, 0);
-                        currentProjectile = Instantiate(orbitalShooterProjectile, transform.position, rotation);
                     }
+                    // if (elapsed >= firingDelay)
+                    // {
+                    //     elapsed = 0f;
+                    //     Quaternion rotation = Quaternion.Euler(0, angle, 0);
+                    //     currentProjectile = Instantiate(orbitalShooterProjectile, transform.position, rotation);
+                    // }
                 }
             }
+            
         }
 
         void FireProjectileOne(Projectile projectile)
         {
-            float angle;
-
-            angle = Mathf.Lerp(180, 15, holdTime / maxHoldTime);
-
-            if (!isHolding)
-            {
-                angle *= -1;
-            }
-
+            Debug.Log("Firing ProjectileOne");
+            float angle = Mathf.Lerp(180, 15, holdTime / maxHoldTime);
+            
             if (elapsed >= firingDelay)
             {
-                Quaternion rotation = Quaternion.Euler(0, angle, 0);
-                currentProjectile = Instantiate(projectile, transform.position, rotation);
-                Vector3 direction = rotation * Vector3.forward;
-                Vector3 playerVelocity = new Vector3(xValue, 0f, zValue) * Time.deltaTime;
-                currentProjectile.Initialize(direction, playerVelocity);
+                FireProjectileWithDirectiom(projectile, angle);
             }
+        }
+
+        private void FireProjectileWithDirectiom(Projectile projectile, float angle)
+        {
+            Quaternion rotation = Quaternion.Euler(0, angle, 0);
+            currentProjectile = Instantiate(projectile, transform.position, rotation);
+            Vector3 direction = rotation * Vector3.forward;
+            Vector3 playerVelocity = new Vector3(xValue, 0f, zValue) * Time.deltaTime;
+            currentProjectile.Initialize(direction, playerVelocity);
         }
 
         void FireProjectileTwo(Projectile projectile)
         {
-            float angle;
-            angle = Mathf.Lerp(180, 355, holdTime / maxHoldTime);
+            float angle = Mathf.Lerp(180, 355, holdTime / maxHoldTime);
             if (elapsed >= firingDelay)
             {
-                Quaternion rotation = Quaternion.Euler(0, angle, 0);
-                currentProjectileTwo = Instantiate(projectile, transform.position, rotation);
-                Vector3 direction = rotation * Vector3.forward;
-                Vector3 playerVelocity = new Vector3(xValue, 0f, zValue) * Time.deltaTime;
-                currentProjectileTwo.Initialize(direction, playerVelocity);
+                FireProjectileWithDirectiom(projectile, angle);
             }
         }
     }

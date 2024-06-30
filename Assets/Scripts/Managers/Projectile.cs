@@ -18,8 +18,8 @@ namespace Managers
         {
             initialVelocity = playerVelocity;
             moveDirection = direction.normalized;
-            Debug.Log("initial velocity: " + playerVelocity);
-            Debug.Log("move direction: " + moveDirection);
+            // Debug.Log("initial velocity: " + playerVelocity);
+            // Debug.Log("move direction: " + moveDirection);
         }
 
         // Start is called before the first frame update
