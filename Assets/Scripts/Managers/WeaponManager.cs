@@ -31,6 +31,8 @@ namespace Managers
         private float currentAngle = 0f;
         private float xValue;
         private float zValue;
+        private float angleTest = 180f;
+        public float angleSpeed = 10f;
 
         private void Awake()
         {
@@ -154,7 +156,11 @@ namespace Managers
         void FireProjectileOne(Projectile projectile)
         {
             Debug.Log("Firing ProjectileOne");
-            float angle = Mathf.Lerp(180, 15, holdTime / maxHoldTime);
+            if (angleTest <= 180)
+            {
+                angleTest += angleSpeed;
+            }
+            float angle = Mathf.Lerp(180, 5, holdTime / maxHoldTime);
             
             if (elapsed >= firingDelay)
             {

@@ -181,6 +181,9 @@ MonoBehaviour:
   moveSpeed: 15
   firingDelay: 400
   projectile: {fileID: 0}
+  guns: []
+  barrelRollDoubleClickSpeed: 1
+  rollFactor: -40
 --- !u!1001 &430252628444568304
 PrefabInstance:
   m_ObjectHideFlags: 0
